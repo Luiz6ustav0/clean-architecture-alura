@@ -33,4 +33,7 @@ public class Aluno {
         this.telefones.add(new Telefone(ddd, numero));
     }
 
+    public List<Telefone> getTelefones() {
+        return this.telefones;
+    }
 }
