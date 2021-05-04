@@ -17,6 +17,18 @@ public class Aluno {
         this.email = email;
     }
 
+    public String getCpf() {
+        return cpf.getNumberString();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email.getEmail();
+    }
+
     public void adicionarTelefone(String ddd, String numero) {
         this.telefones.add(new Telefone(ddd, numero));
     }
