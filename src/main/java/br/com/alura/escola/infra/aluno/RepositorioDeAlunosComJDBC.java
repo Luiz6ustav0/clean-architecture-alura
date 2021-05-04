@@ -3,6 +3,7 @@ package br.com.alura.escola.infra.aluno;
 import br.com.alura.escola.dominio.aluno.Aluno;
 import br.com.alura.escola.dominio.aluno.CPF;
 import br.com.alura.escola.dominio.aluno.RepositorioDeAlunos;
+import br.com.alura.escola.dominio.aluno.Telefone;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +27,15 @@ public class RepositorioDeAlunosComJDBC implements RepositorioDeAlunos {
             ps.setString(2, aluno.getNome());
             ps.setString(3, aluno.getEmail());
             ps.execute();
+
+            sql = "INSERT INTO telefone VALUES(?, ?)";
+            ps = connection.prepareStatement(sql);
+            for (Telefone telefone: aluno.getTelefones()) {
+                ps.setString(1, telefone.getDdd());
+                ps.setString(2, telefone.getNumero());
+                ps.execute();
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
