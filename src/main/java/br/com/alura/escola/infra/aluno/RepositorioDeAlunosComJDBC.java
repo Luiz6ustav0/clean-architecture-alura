@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioDeAlunosComJDBC implements RepositorioDeAlunos {
@@ -75,7 +76,21 @@ public class RepositorioDeAlunosComJDBC implements RepositorioDeAlunos {
 
     @Override
     public List<Aluno> listarTodosAlunosMatriculados() {
-        return null;
+        try {
+            String sql = "SELECT id, cpf, nome, email FROM aluno";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            List<Aluno> alunos = new ArrayList<>();
+            while (rs.next()) {
+                CPF cpf = new CPF(rs.getString(("cpf")));
+                String nome = rs.getString("nome");
+                Email email = new Email(rs.getString("email"));
+                Aluno aluno = new Aluno(cpf, nome, email);
+                alunos.add(aluno);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 }
