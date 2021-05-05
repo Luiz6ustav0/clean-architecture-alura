@@ -2,7 +2,6 @@ package br.com.alura.escola.infra.aluno;
 
 import br.com.alura.escola.dominio.aluno.CifradorDeSenha;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -15,8 +14,8 @@ public class CifradorDeSenhaComMD5 implements CifradorDeSenha {
             md.update(senha.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 1));
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 1));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
