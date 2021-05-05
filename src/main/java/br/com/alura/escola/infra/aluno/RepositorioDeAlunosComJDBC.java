@@ -88,8 +88,9 @@ public class RepositorioDeAlunosComJDBC implements RepositorioDeAlunos {
                 Aluno aluno = new Aluno(cpf, nome, email);
                 alunos.add(aluno);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return alunos;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
